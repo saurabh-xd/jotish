@@ -12,20 +12,22 @@ export default function Login() {
     if (username === "testuser" && password === "Test123") {
       localStorage.setItem("auth", "true");
       navigate("/list");
-        toast.success("Logged in successfully")
+      toast.success("Logged in successfully");
     } else {
-      
-       toast.error("Invalid credentials")
+      toast.error("Invalid credentials");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center  px-4">
       <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 w-full max-w-sm">
-        
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">Welcome back</h1>
-          <p className="text-sm text-gray-500 mt-2">Enter your details to access your account.</p>
+          <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">
+            Welcome back
+          </h1>
+          <p className="text-sm text-gray-500 mt-2">
+            Enter your details to access your account.
+          </p>
         </div>
 
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
@@ -49,7 +51,6 @@ export default function Login() {
             />
           </div>
 
-         
           <button
             type="submit"
             className="w-full bg-black text-white font-medium py-3 rounded-lg hover:bg-gray-800 active:scale-[0.98] transition-all mt-2 shadow-md shadow-gray-200 cursor-pointer"
@@ -57,7 +58,6 @@ export default function Login() {
             Sign in
           </button>
         </form>
-
       </div>
     </div>
   );
