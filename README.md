@@ -14,19 +14,19 @@ npm run dev
 ## Screenshots
 
 ### Login
-![Login](/screenshots/login.png)
+![Login](public/screenshots/login.png)
 
 ### List
-![List](/screenshots/list.png)
+![List](public/screenshots/list.png)
 
 ### Details
-![Details](/screenshots/details.png)
+![Details](public/screenshots/details.png)
 
 ### Camera
-![Camera](/screenshots/camera.png)
+![Camera](public/screenshots/camera.png)
 
 ### Chart
-![Chart](/screenshots/chart.png)
+![Chart](public/screenshots/chart.png)
 
 ## Screen Recording
-https://drive.google.com/your-video-link
+[https://drive.google.com/your-video-link](https://drive.google.com/file/d/10Y87p8GQQfxaVFnpJq8mnsSDmHyQuyL8/view?usp=drive_link)
