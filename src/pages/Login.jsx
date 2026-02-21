@@ -1,22 +1,26 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     if (username === "testuser" && password === "Test123") {
       localStorage.setItem("auth", "true");
       navigate("/list");
+        toast.success("Logged in successfully")
     } else {
-      alert("Invalid credentials");
+      
+       toast.error("Invalid credentials")
     }
   };
 
   return (
-    <div className="min-h-[90vh] flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center  px-4">
       <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 w-full max-w-sm">
         
         <div className="text-center mb-8">
