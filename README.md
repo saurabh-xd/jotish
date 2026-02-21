@@ -14,19 +14,19 @@ npm run dev
 ## Screenshots
 
 ### Login
-![Login](./screenshots/login.png)
+![Login](/screenshots/login.png)
 
 ### List
-![List](./screenshots/list.png)
+![List](/screenshots/list.png)
 
 ### Details
-![Details](./screenshots/details.png)
+![Details](/screenshots/details.png)
 
 ### Camera
-![Camera](./screenshots/camera.png)
+![Camera](/screenshots/camera.png)
 
 ### Chart
-![Chart](./screenshots/chart.png)
+![Chart](/screenshots/chart.png)
 
 ## Screen Recording
 https://drive.google.com/your-video-link
