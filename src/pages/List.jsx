@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchEmployees } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import Skeleton from "../components/Skeleton";
 
 export default function List() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [city, setCity] = useState("all");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,68 +16,123 @@ export default function List() {
       .then((res) => {
         setData(res.TABLE_DATA.data);
       })
-      .catch((err) => {
-        console.error("Failed to fetch employees", err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .finally(() => setLoading(false));
   }, []);
 
+ 
+  const cities = useMemo(() => {
+    const all = data.map((e) => e[2]);
+    return ["all", ...new Set(all)];
+  }, [data]);
+
+
+  const filtered = useMemo(() => {
+    return data.filter((emp) => {
+      const matchSearch = emp[0]
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
+      const matchCity =
+        city === "all" || emp[2] === city;
+
+      return matchSearch && matchCity;
+    });
+  }, [data, search, city]);
+
   return (
-    <div className="min-h-screen  py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        
-      
-        <div className="flex  sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-    
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">Employees</h1>
-            
-         
-          
-          <button
-            onClick={() => navigate("/chart")}
-            className="bg-black text-white md:px-5 md:py-2.5 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 cursor-pointer active:scale-[0.98] transition-all shadow-sm"
-          >
-            View Analytics
-          </button>
+
+       
+        <div className="flex flex-col gap-4 mb-8">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl md:text-3xl font-bold">
+              Employees
+            </h1>
+
+           
+          </div>
+
+<div className="flex justify-between">
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <input
+              placeholder="Search employee..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="border px-4 py-2 rounded-lg w-full sm:w-64"
+            />
+
+            <select
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="border px-4 py-2 rounded-lg w-full sm:w-48"
+            >
+              {cities.map((c) => (
+                <option key={c} value={c}>
+                  {c === "all" ? "All Cities" : c}
+                </option>
+              ))}
+            </select>
+          </div>
+
+ <button
+              onClick={() => navigate("/chart")}
+              className="bg-black text-white px-4 py-2 rounded-lg cursor-pointer text-sm"
+            >
+              View Analytics
+            </button>
+          </div>
         </div>
 
-      
+       
         {loading ? (
-          <div className="flex justify-center items-center h-48 text-gray-400 font-medium animate-pulse">
-            Loading employees...
-          </div>
+          <Skeleton/>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {data.map((emp, i) => (
+            {filtered.map((emp, i) => (
               <div
                 key={i}
-                onClick={() => navigate(`/details/${i}`, { state: emp })}
-                className="bg-white border border-gray-200 p-5 rounded-xl cursor-pointer hover:border-gray-300 hover:shadow-md hover:-translate-y-1 transition-all duration-200 flex flex-col h-full"
+                onClick={() =>
+                  navigate(`/details/${i}`, { state: emp })
+                }
+                className="bg-white border p-5 rounded-xl cursor-pointer hover:shadow-md transition"
               >
-                
-                <div className="flex items-center flex-col">
-                  <h2 className="text-lg font-semibold text-gray-900 line-clamp-1">{emp[0]}</h2>
-                  <p className="text-sm text-gray-500 mt-0.5 line-clamp-1">{emp[1]}</p>
-                </div>
-                
-               
-                <div className="mt-6 pt-4 border-t border-gray-100 flex justify-between items-end">
+                <h2 className="text-lg font-semibold">
+                  {emp[0]}
+                </h2>
+                <p className="text-sm text-gray-500">
+                  {emp[1]}
+                </p>
+
+                <div className="mt-6 pt-4 border-t flex justify-between">
                   <div>
-                    <p className="text-[11px] text-gray-400 uppercase tracking-wider font-semibold">Location</p>
-                    <p className="text-sm text-gray-700 font-medium truncate max-w-[100px]">{emp[2]}</p>
+                    <p className="text-xs text-gray-400">
+                      Location
+                    </p>
+                    <p className="text-sm">{emp[2]}</p>
                   </div>
+
                   <div className="text-right">
-                    <p className="text-[11px] text-gray-400 uppercase tracking-wider font-semibold">Salary</p>
-                    <p className="text-sm font-semibold text-gray-900">{emp[5]}</p>
+                    <p className="text-xs text-gray-400">
+                      Salary
+                    </p>
+                    <p className="text-sm font-semibold">
+                      {emp[5]}
+                    </p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         )}
-        
+
+       
+        {!loading && filtered.length === 0 && (
+          <p className="text-center text-gray-500 mt-10">
+            No employees found
+          </p>
+        )}
       </div>
     </div>
   );

@@ -29,4 +29,4 @@ npm run dev
 ![Chart](public/screenshots/chart.png)
 
 ## Screen Recording
-[https://drive.google.com/your-video-link](https://drive.google.com/file/d/10Y87p8GQQfxaVFnpJq8mnsSDmHyQuyL8/view?usp=drive_link)
+[https://drive.google.com/your-video-link](https://drive.google.com/file/d/1ljTv2ry0nm9wNQAV5vzo2wVF8_WTa7f5/view?usp=sharing)
