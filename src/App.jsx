@@ -5,13 +5,14 @@ import List from "./pages/List";
 import Details from "./pages/Details";
 import PhotoResult from "./pages/PhotoResult";
 import Chart from "./pages/Chart";
+import { Toaster } from 'sonner';
 
 function App() {
  
 
   return (
-  <div className=''>
-    {/* <Toaster richColors /> */}
+  <div className="min-h-screen bg-gray-50 text-gray-900 antialiased selection:bg-gray-200">
+    <Toaster richColors />
    <Routes>
     <Route path="/" element={<Login />} />
         <Route path="/list" element={<List />} />
