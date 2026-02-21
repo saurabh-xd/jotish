@@ -78,7 +78,7 @@ export default function List() {
 
  <button
               onClick={() => navigate("/chart")}
-              className="bg-black text-white px-4 py-2 rounded-lg cursor-pointer text-sm"
+              className="bg-black text-white px-4 py-2 rounded-lg cursor-pointer text-sm h-10"
             >
               View Analytics
             </button>
