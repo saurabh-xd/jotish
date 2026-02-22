@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://backend.jotish.in/backend_dev/:path*"
+    }
+  ]
+}
